@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMA Tech Agency — Digital Solutions from Laâyoune</title>
+<meta name="description" content="Agence de développement web, mobile & marketing digital basée à Laâyoune. Votre partenaire tech dans le Grand Sud du Maroc.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter','Cairo','sans-serif'] },
+        colors: {
+          dark: '#0C0C0C',
+          accent: '#3b82f6',
+          accent2: '#06b6d4',
+        }
+      }
+    }
+  }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0C0C0C;
+    color: #f8fafc;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #60a5fa 0%, #22d3ee 50%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .contact-btn {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    box-shadow: 0 10px 40px -10px rgba(59,130,246,0.5);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  .contact-btn:hover { transform: scale(1.05); opacity: 0.9; }
+
+  .noise {
+    position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .marquee-row { will-change: transform; display: flex; gap: 12px; }
+  .marquee-img {
+    width: 420px; height: 270px; border-radius: 1rem; object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .service-card {
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px -10px rgba(59,130,246,0.25);
+  }
+
+  .bar-fill { width: 0%; transition: width 1.5s cubic-bezier(0.22,1,0.36,1); }
+
+  .process-line {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+    transform: translateX(-50%);
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #0C0C0C; }
+  ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px;
+    background: linear-gradient(90deg, #3b82f6, #06b6d4); transition: width 0.3s ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<!-- NAVIGATION -->
+<nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#" class="text-xl font-bold tracking-tight flex items-center gap-2">
+      <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-xs font-extrabold text-white">A</span>
+      AMA Tech
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+      <a href="#about" class="nav-link hover:text-white transition-colors">About</a>
+      <a href="#services" class="nav-link hover:text-white transition-colors">Services</a>
+      <a href="#investment" class="nav-link hover:text-white transition-colors">Projet MDM</a>
+      <a href="#team" class="nav-link hover:text-white transition-colors">Équipe</a>
+      <a href="#contact" class="px-4 py-2 rounded-full contact-btn text-white text-xs font-semibold">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+  <div class="absolute w-96 h-96 bg-blue-600 rounded-full blur-[100px] opacity-20 top-20 left-20" style="animation: float 10s ease-in-out infinite;"></div>
+  <div class="absolute w-80 h-80 bg-cyan-500 rounded-full blur-[100px] opacity-20 bottom-20 right-20" style="animation: float 10s ease-in-out infinite; animation-delay: -5s;"></div>
+  <div class="absolute w-64 h-64 bg-indigo-600 rounded-full blur-[100px] opacity-20 top-1/2 left-1/2" style="animation: float 10s ease-in-out infinite; animation-delay: -2s;"></div>
+
+  <style>@keyframes float { 0%,100%{transform:translate(0,0);} 50%{transform:translate(20px,-20px);} }</style>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+    <div class="inline-block mb-6 px-4 py-1.5 rounded-full glass text-xs font-semibold text-cyan-300 tracking-wide uppercase border border-cyan-500/20">
+      🚀 Agence Digitale — Laâyoune, Maroc
+    </div>
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.1] mb-8 hero-h1">
+      On construit le <br>
+      <span class="gradient-text">Sud Digital.</span>
+    </h1>
+    <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed hero-sub">
+      AMA Tech Agency est le premier pôle tech du Grand Sud Marocain. Sites web, applications mobiles et marketing digital — conçus localement, performants globalement.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 hero-btns">
+      <a href="#contact" class="px-8 py-4 rounded-full contact-btn text-white font-semibold text-sm">
+        Démarrer un projet
+      </a>
+      <a href="plan-daffaires.html" target="_blank" class="px-8 py-4 rounded-full glass text-white font-semibold text-sm hover:bg-white/10 transition-all border border-white/10">
+        Voir le Business Plan →
+      </a>
+    </div>
+
+    <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 text-left hero-stats">
+      <div class="glass rounded-2xl p-5">
+        <div class="text-3xl font-bold text-white counter" data-target="5">0</div>
+        <div class="text-xs text-slate-400 mt-1">Cofondateurs passionnés</div>
+      </div>
+      <div class="glass rounded-2xl p-5">
+        <div class="text-3xl font-bold text-white counter" data-target="87000">0</div>
+        <div class="text-xs text-slate-400 mt-1">Investissement MDM (MAD)</div>
+      </div>
+      <div class="glass rounded-2xl p-5">
+        <div class="text-3xl font-bold text-white counter" data-target="6">0</div>
+        <div class="text-xs text-slate-400 mt-1">Projets/mois visés</div>
+      </div>
+      <div class="glass rounded-2xl p-5">
+        <div class="text-3xl font-bold text-white counter" data-target="2">0</div>
+        <div class="text-xs text-slate-400 mt-1">Agences locales max.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+    <span class="text-[10px] uppercase tracking-widest text-slate-400">Scroll</span>
+    <div class="w-px h-8 bg-gradient-to-b from-cyan-400 to-transparent"></div>
+  </div>
+</section>
+
+<!-- MARQUEE (NEW from last design) -->
+<section id="marquee" class="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden">
+  <!-- Row 1: first 11 images, tripled, moves RIGHT -->
+  <div class="flex gap-3 mb-3 marquee-row" id="marqueeRow1">
+    <img src="https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif" class="marquee-img" loading="lazy" alt="">
+    <!-- duplicate -->
+    <img src="https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif" class="marquee-img" loading="lazy" alt="">
+    <!-- triplicate -->
+    <img src="https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif" class="marquee-img" loading="lazy" alt="">
+  </div>
+
+  <!-- Row 2: remaining 10 images, tripled, moves LEFT -->
+  <div class="flex gap-3 marquee-row" id="marqueeRow2">
+    <img src="https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif" class="marquee-img" loading="lazy" alt="">
+    <!-- duplicate -->
+    <img src="https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif" class="marquee-img" loading="lazy" alt="">
+    <!-- triplicate -->
+    <img src="https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif" class="marquee-img" loading="lazy" alt="">
+    <img src="https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif" class="marquee-img" loading="lazy" alt="">
+  </div>
+</section>
+
+<!-- ABOUT / MANIFESTO -->
+<section id="about" class="py-24 md:py-32 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="about-text">
+        <h2 class="text-3xl md:text-5xl font-bold mb-6">Pourquoi <span class="gradient-text">Laâyoune</span> a besoin de son agence.</h2>
+        <p class="text-slate-400 text-lg leading-relaxed mb-6">
+          Le Sud du Maroc est une région en pleine mutation économique. Entre les projets d'énergie solaire, le développement du port de Dakhla et l'essor du tourisme saharien, le besoin en présence digitale est explosif.
+        </p>
+        <p class="text-slate-400 text-lg leading-relaxed mb-8">
+          Pourtant, les entreprises locales n'ont que <strong>2 agences</strong> à proximité. Le reste dépend de Casablanca ou de l'étranger. Nous sommes là pour changer ça.
+        </p>
+        <ul class="space-y-3 text-slate-300">
+          <li class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs">✓</span>
+            Proximité géographique et culturelle
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs">✓</span>
+            Tarifs adaptés au tissu local (à partir de 1 500 MAD)
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs">✓</span>
+            Support technique et maintenance locale
+          </li>
+        </ul>
+      </div>
+      <div class="about-visual relative">
+        <div class="absolute -inset-4 bg-gradient-to-r from-blue-600/20 to-cyan-500/20 rounded-3xl blur-2xl"></div>
+        <div class="relative glass rounded-3xl p-8 border border-white/10">
+          <div class="flex items-center justify-between mb-6">
+            <span class="text-sm text-slate-400">Opportunité de marché</span>
+            <span class="px-2 py-1 rounded bg-green-500/20 text-green-400 text-xs font-bold">+340% demande</span>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-slate-300">PME non-digitisées</span><span class="text-white font-bold">78%</span></div>
+              <div class="h-2 rounded-full bg-slate-700 overflow-hidden"><div class="h-full bg-blue-500 rounded-full" style="width:78%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-slate-300">Agences locales</span><span class="text-white font-bold">2</span></div>
+              <div class="h-2 rounded-full bg-slate-700 overflow-hidden"><div class="h-full bg-cyan-500 rounded-full" style="width:5%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-slate-300">Croissance tourisme</span><span class="text-white font-bold">+22%/an</span></div>
+              <div class="h-2 rounded-full bg-slate-700 overflow-hidden"><div class="h-full bg-indigo-500 rounded-full" style="width:65%"></div></div>
+            </div>
+          </div>
+          <div class="mt-6 pt-6 border-t border-white/5 grid grid-cols-2 gap-4 text-center">
+            <div>
+              <div class="text-2xl font-bold text-white">200k+</div>
+              <div class="text-xs text-slate-500">habitants Laâyoune</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-white">0</div>
+              <div class="text-xs text-slate-500">concurrents directs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 services-header">
+      <h2 class="text-3xl md:text-5xl font-bold mb-4">Ce qu'on <span class="gradient-text">fait</span>.</h2>
+      <p class="text-slate-400 max-w-xl mx-auto">Un écosystème complet pour transformer la présence digitale des entreprises du Sud.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="service-card glass rounded-2xl p-8 border border-white/5 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all"></div>
+        <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-6 text-2xl">🌐</div>
+        <h3 class="text-xl font-bold mb-3">Sites Web & E-commerce</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Vitrines modernes, boutiques Shopify/WooCommerce et applications sur mesure avec React & Next.js.</p>
+        <div class="mt-6 flex items-center text-blue-400 text-sm font-medium">
+          <span>À partir de 1 500 MAD</span>
+          <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+      </div>
+
+      <div class="service-card glass rounded-2xl p-8 border border-white/5 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
+        <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center mb-6 text-2xl">📱</div>
+        <h3 class="text-xl font-bold mb-3">Applications Mobiles</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Apps iOS et Android avec Flutter. Du MVP au produit complet, publié sur les stores.</p>
+        <div class="mt-6 flex items-center text-cyan-400 text-sm font-medium">
+          <span>À partir de 10 000 MAD</span>
+          <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+      </div>
+
+      <div class="service-card glass rounded-2xl p-8 border border-white/5 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
+        <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-6 text-2xl">📈</div>
+        <h3 class="text-xl font-bold mb-3">Marketing Digital</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">SEO local, gestion des réseaux sociaux, campagnes Meta Ads & Google Ads avec ROI mesurable.</p>
+        <div class="mt-6 flex items-center text-indigo-400 text-sm font-medium">
+          <span>Packs dès 2 000 MAD/mois</span>
+          <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+      </div>
+
+      <div class="service-card glass rounded-2xl p-8 border border-white/5 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
+        <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-6 text-2xl">🎨</div>
+        <h3 class="text-xl font-bold mb-3">Branding & UI/UX</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Identité visuelle complète : logo, charte graphique, maquettes Figma et design systems.</p>
+        <div class="mt-6 flex items-center text-purple-400 text-sm font-medium">
+          <span>À partir de 1 500 MAD</span>
+          <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+      </div>
+
+      <div class="service-card glass rounded-2xl p-8 border border-white/5 relative overflow-hidden group md:col-span-2 lg:col-span-2">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
+        <div class="flex flex-col md:flex-row md:items-center gap-6">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-0 text-2xl shrink-0">🛠️</div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">Solutions sur mesure (SaaS & Dashboards)</h3>
+            <p class="text-slate-400 text-sm leading-relaxed max-w-xl">Applications métier, portails de gestion, tableaux de bord analytiques et solutions SaaS pour les administrations, ONG et PME en croissance. Stack technique moderne : Node.js, Python, React, PostgreSQL.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT / BUSINESS PLAN VISUAL -->
+<section id="investment" class="py-24 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none"></div>
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="text-center mb-16 invest-header">
+      <div class="inline-block mb-4 px-3 py-1 rounded-full bg-blue-500/10 text-blue-300 text-xs font-semibold border border-blue-500/20">MDM TAMWIL — BUSINESS PLAN</div>
+      <h2 class="text-3xl md:text-5xl font-bold mb-4">Le projet en <span class="gradient-text">chiffres</span>.</h2>
+      <p class="text-slate-400 max-w-2xl mx-auto">Notre plan de financement et nos projections sur 3 ans. Un modèle économique solide, rentable dès la première année.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <div class="glass rounded-3xl p-8 border border-white/10 invest-card">
+        <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm">💰</span>
+          Investissement : 87 000 MAD
+        </h3>
+        <div class="space-y-5">
+          <div class="bar-item">
+            <div class="flex justify-between text-sm mb-1"><span class="text-slate-300">Matériel informatique (5 laptops + écrans)</span><span class="text-white font-mono">38 000 MAD</span></div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden"><div class="bar-fill h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" data-width="44%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="flex justify-between text-sm mb-1"><span class="text-slate-300">Aménagement & Mobilier bureau</span><span class="text-white font-mono">12 000 MAD</span></div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden"><div class="bar-fill h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" data-width="14%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="flex justify-between text-sm mb-1"><span class="text-slate-300">Serveur Cloud & Licences (1 an)</span><span class="text-white font-mono">12 000 MAD</span></div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden"><div class="bar-fill h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" data-width="14%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="flex justify-between text-sm mb-1"><span class="text-slate-300">Fonds de roulement (3 mois)</span><span class="text-white font-mono">15 000 MAD</span></div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden"><div class="bar-fill h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" data-width="17%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="flex justify-between text-sm mb-1"><span class="text-slate-300">Marketing, Légaux & Imprévus</span><span class="text-white font-mono">10 000 MAD</span></div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden"><div class="bar-fill h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" data-width="11%"></div></div>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/5 flex justify-between items-center">
+          <span class="text-slate-400 text-sm">Financement</span>
+          <div class="text-right">
+            <div class="text-xs text-slate-500">Apport associés : 25 000 MAD</div>
+            <div class="text-xs text-slate-500">Prêt MDM Tamwil : 62 000 MAD</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass rounded-3xl p-8 border border-white/10 invest-card">
+        <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm">📊</span>
+          Projections de revenus
+        </h3>
+        <div class="space-y-6">
+          <div class="relative">
+            <div class="flex justify-between items-end mb-2">
+              <div>
+                <div class="text-sm text-slate-400">Année 1</div>
+                <div class="text-2xl font-bold text-white">180 000 MAD</div>
+              </div>
+              <div class="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">6 projets/mois</div>
+            </div>
+            <div class="h-12 bg-slate-700/50 rounded-lg overflow-hidden relative">
+              <div class="bar-fill h-full bg-gradient-to-r from-emerald-500 to-emerald-300 rounded-lg flex items-center justify-end px-3" data-width="25%">
+                <span class="text-xs font-bold text-emerald-950">+ 70k bénéfice net</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="flex justify-between items-end mb-2">
+              <div>
+                <div class="text-sm text-slate-400">Année 2</div>
+                <div class="text-2xl font-bold text-white">360 000 MAD</div>
+              </div>
+              <div class="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">10 projets/mois</div>
+            </div>
+            <div class="h-12 bg-slate-700/50 rounded-lg overflow-hidden relative">
+              <div class="bar-fill h-full bg-gradient-to-r from-emerald-500 to-emerald-300 rounded-lg flex items-center justify-end px-3" data-width="50%">
+                <span class="text-xs font-bold text-emerald-950">+ 186k bénéfice net</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="flex justify-between items-end mb-2">
+              <div>
+                <div class="text-sm text-slate-400">Année 3</div>
+                <div class="text-2xl font-bold text-white">720 000 MAD</div>
+              </div>
+              <div class="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">15 projets/mois</div>
+            </div>
+            <div class="h-12 bg-slate-700/50 rounded-lg overflow-hidden relative">
+              <div class="bar-fill h-full bg-gradient-to-r from-emerald-500 to-emerald-300 rounded-lg flex items-center justify-end px-3" data-width="100%">
+                <span class="text-xs font-bold text-emerald-950">+ 418k bénéfice net</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 grid grid-cols-2 gap-4">
+          <div class="rounded-xl bg-white/5 p-4 text-center">
+            <div class="text-2xl font-bold text-white">3-5</div>
+            <div class="text-xs text-slate-500">projets/mois pour rentabilité</div>
+          </div>
+          <div class="rounded-xl bg-white/5 p-4 text-center">
+            <div class="text-2xl font-bold text-white">20%</div>
+            <div class="text-xs text-slate-500">équité par associé</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 text-center">
+      <a href="plan-daffaires.html" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all text-sm font-medium">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Télécharger le Business Plan complet (FR/AR)
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 team-header">
+      <h2 class="text-3xl md:text-5xl font-bold mb-4">L'équipe <span class="gradient-text">fondatrice</span>.</h2>
+      <p class="text-slate-400 max-w-xl mx-auto">5 associés, 20% chacun, 100% engagés. Pas de salaires initiaux — juste la passion de bâtir.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div class="team-card group relative">
+        <div class="glass rounded-2xl p-6 border border-white/5 text-center relative overflow-hidden h-full">
+          <div class="absolute inset-0 bg-gradient-to-b from-blue-500/0 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-blue-400 to-cyan-300 flex items-center justify-center text-2xl font-bold text-slate-900 mb-4 shadow-lg shadow-blue-500/20">A</div>
+          <h3 class="font-bold text-white mb-1">Fondateur 1</h3>
+          <div class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-3">CEO / Gérant</div>
+          <p class="text-slate-400 text-xs leading-relaxed">Vision stratégique, business development et gestion de projet. Pilote l'ensemble de l'agence.</p>
+        </div>
+      </div>
+      <div class="team-card group relative">
+        <div class="glass rounded-2xl p-6 border border-white/5 text-center relative overflow-hidden h-full">
+          <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/0 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-cyan-400 to-teal-300 flex items-center justify-center text-2xl font-bold text-slate-900 mb-4 shadow-lg shadow-cyan-500/20">B</div>
+          <h3 class="font-bold text-white mb-1">Fondateur 2</h3>
+          <div class="text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-3">CTO / Lead Dev</div>
+          <p class="text-slate-400 text-xs leading-relaxed">Architecture technique, stack MERN & Flutter, DevOps et sécurité des infrastructures.</p>
+        </div>
+      </div>
+      <div class="team-card group relative">
+        <div class="glass rounded-2xl p-6 border border-white/5 text-center relative overflow-hidden h-full">
+          <div class="absolute inset-0 bg-gradient-to-b from-indigo-500/0 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-indigo-400 to-purple-300 flex items-center justify-center text-2xl font-bold text-slate-900 mb-4 shadow-lg shadow-indigo-500/20">C</div>
+          <h3 class="font-bold text-white mb-1">Fondateur 3</h3>
+          <div class="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-3">Développeur Full-Stack</div>
+          <p class="text-slate-400 text-xs leading-relaxed">Développement frontend/backend, intégration CMS et création d'interfaces interactives.</p>
+        </div>
+      </div>
+      <div class="team-card group relative">
+        <div class="glass rounded-2xl p-6 border border-white/5 text-center relative overflow-hidden h-full">
+          <div class="absolute inset-0 bg-gradient-to-b from-pink-500/0 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-pink-400 to-rose-300 flex items-center justify-center text-2xl font-bold text-slate-900 mb-4 shadow-lg shadow-pink-500/20">D</div>
+          <h3 class="font-bold text-white mb-1">Fondateur 4</h3>
+          <div class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-3">Marketing Manager</div>
+          <p class="text-slate-400 text-xs leading-relaxed">SEO, stratégie social media, branding et copywriting. Fait rayonner AMA Tech.</p>
+        </div>
+      </div>
+      <div class="team-card group relative md:col-span-2 lg:col-span-1">
+        <div class="glass rounded-2xl p-6 border border-white/5 text-center relative overflow-hidden h-full">
+          <div class="absolute inset-0 bg-gradient-to-b from-amber-500/0 to-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-amber-400 to-orange-300 flex items-center justify-center text-2xl font-bold text-slate-900 mb-4 shadow-lg shadow-amber-500/20">E</div>
+          <h3 class="font-bold text-white mb-1">Fondateur 5</h3>
+          <div class="text-xs font-semibold text-amber-400 uppercase tracking-wider mb-3">Commercial / Admin</div>
+          <p class="text-slate-400 text-xs leading-relaxed">Prospection, relation client, closing et gestion administrative de l'agence.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="py-24 relative overflow-hidden">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-16 process-header">
+      <h2 class="text-3xl md:text-5xl font-bold mb-4">Notre <span class="gradient-text">processus</span>.</h2>
+      <p class="text-slate-400">De l'idée à la mise en ligne, méthodique et transparent.</p>
+    </div>
+
+    <div class="relative">
+      <div class="hidden md:block process-line"></div>
+      <div class="space-y-12">
+        <div class="process-step relative flex flex-col md:flex-row items-center gap-8">
+          <div class="md:w-1/2 md:text-right order-2 md:order-1">
+            <h3 class="text-xl font-bold text-white mb-2">1. Découverte</h3>
+            <p class="text-slate-400 text-sm">On écoute vos besoins, on analyse votre marché local et on définit ensemble le scope du projet avec un cahier des charges clair.</p>
+          </div>
+          <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(59,130,246,0.4)]">1</div>
+          <div class="md:w-1/2 order-3"></div>
+        </div>
+        <div class="process-step relative flex flex-col md:flex-row items-center gap-8">
+          <div class="md:w-1/2 order-1"></div>
+          <div class="w-12 h-12 rounded-full bg-cyan-600 flex items-center justify-center text-white font-bold z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(6,182,212,0.4)]">2</div>
+          <div class="md:w-1/2 md:text-left order-2 md:order-3">
+            <h3 class="text-xl font-bold text-white mb-2">2. Design & UX</h3>
+            <p class="text-slate-400 text-sm">Maquettes Figma, prototypage interactif et validation avant une seule ligne de code. Vous voyez exactement ce que vous allez recevoir.</p>
+          </div>
+        </div>
+        <div class="process-step relative flex flex-col md:flex-row items-center gap-8">
+          <div class="md:w-1/2 md:text-right order-2 md:order-1">
+            <h3 class="text-xl font-bold text-white mb-2">3. Développement</h3>
+            <p class="text-slate-400 text-sm">Code propre, performant et sécurisé. Sprints hebdomadaires avec démonstrations et ajustements en temps réel.</p>
+          </div>
+          <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(99,102,241,0.4)]">3</div>
+          <div class="md:w-1/2 order-3"></div>
+        </div>
+        <div class="process-step relative flex flex-col md:flex-row items-center gap-8">
+          <div class="md:w-1/2 order-1"></div>
+          <div class="w-12 h-12 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(16,185,129,0.4)]">4</div>
+          <div class="md:w-1/2 md:text-left order-2 md:order-3">
+            <h3 class="text-xl font-bold text-white mb-2">4. Déploiement & Growth</h3>
+            <p class="text-slate-400 text-sm">Mise en ligne, référencement initial, formation à l'administration et lancement de la campagne marketing si nécessaire.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / CTA -->
+<section id="contact" class="py-24 relative">
+  <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent pointer-events-none"></div>
+  <div class="max-w-3xl mx-auto px-6 text-center relative">
+    <h2 class="text-3xl md:text-5xl font-bold mb-6">Prêt à digitaliser <br><span class="gradient-text">votre entreprise ?</span></h2>
+    <p class="text-slate-400 mb-10">Que vous soyez à Laâyoune, Dakhla ou Agadir, nous sommes votre partenaire tech de proximité.</p>
+
+    <div class="glass rounded-3xl p-8 md:p-12 border border-white/10 text-left max-w-xl mx-auto">
+      <form onsubmit="event.preventDefault(); alert('Message envoyé ! Nous vous contacterons sous 24h.');">
+        <div class="grid md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-2 uppercase">Nom</label>
+            <input type="text" class="w-full bg-slate-800/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors" placeholder="Votre nom" required>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-2 uppercase">Email</label>
+            <input type="email" class="w-full bg-slate-800/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors" placeholder="contact@entreprise.ma" required>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="block text-xs font-medium text-slate-400 mb-2 uppercase">Type de projet</label>
+          <select class="w-full bg-slate-800/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors">
+            <option>Site Web Vitrine</option>
+            <option>E-commerce</option>
+            <option>Application Mobile</option>
+            <option>Marketing Digital</option>
+            <option>Branding / UI-UX</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="mb-6">
+          <label class="block text-xs font-medium text-slate-400 mb-2 uppercase">Message</label>
+          <textarea rows="4" class="w-full bg-slate-800/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors" placeholder="Décrivez votre projet..."></textarea>
+        </div>
+        <button type="submit" class="w-full py-4 rounded-lg contact-btn text-white font-semibold text-sm">
+          Envoyer la demande →
+        </button>
+      </form>
+    </div>
+
+    <div class="mt-12 flex flex-col md:flex-row items-center justify-center gap-8 text-sm text-slate-500">
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Laâyoune, Maroc
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        contact@amatech.agency
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        +212 6XX XXX XXX
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 py-12">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-2 text-sm text-slate-500">
+      <span class="w-6 h-6 rounded bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-[10px] font-bold text-white">A</span>
+      © 2026 AMA Tech Agency SARL. Tous droits réservés.
+    </div>
+    <div class="flex items-center gap-6 text-sm text-slate-500">
+      <a href="plan-daffaires.html" target="_blank" class="hover:text-white transition-colors">Business Plan MDM</a>
+      <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+      <a href="#" class="hover:text-white transition-colors">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero
+  gsap.from(".hero-h1", { opacity: 0, y: 60, duration: 1.2, ease: "power3.out", delay: 0.2 });
+  gsap.from(".hero-sub", { opacity: 0, y: 40, duration: 1, ease: "power3.out", delay: 0.5 });
+  gsap.from(".hero-btns", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out", delay: 0.8 });
+  gsap.from(".hero-stats > div", { opacity: 0, y: 30, stagger: 0.15, duration: 0.8, ease: "power3.out", delay: 1 });
+
+  // Counters
+  document.querySelectorAll('.counter').forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    gsap.to(counter, {
+      innerText: target, duration: 2, snap: { innerText: 1 }, ease: "power1.out", delay: 1.2,
+      onUpdate: function() { counter.innerText = Math.ceil(this.targets()[0].innerText).toLocaleString(); }
+    });
+  });
+
+  // Marquee scroll
+  const marqueeSection = document.getElementById('marquee');
+  const row1 = document.getElementById('marqueeRow1');
+  const row2 = document.getElementById('marqueeRow2');
+  function updateMarquee() {
+    const rect = marqueeSection.getBoundingClientRect();
+    const sectionTop = rect.top + window.scrollY;
+    const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.3;
+    const safeOffset = Math.max(0, offset);
+    row1.style.transform = `translateX(${safeOffset - 200}px)`;
+    row2.style.transform = `translateX(${-(safeOffset - 200)}px)`;
+  }
+  window.addEventListener('scroll', updateMarquee, { passive: true });
+  updateMarquee();
+
+  // About
+  gsap.from(".about-text", { scrollTrigger: { trigger: "#about", start: "top 70%" }, opacity: 0, x: -50, duration: 1, ease: "power3.out" });
+  gsap.from(".about-visual", { scrollTrigger: { trigger: "#about", start: "top 70%" }, opacity: 0, x: 50, duration: 1, ease: "power3.out", delay: 0.2 });
+
+  // Services
+  gsap.from(".services-header", { scrollTrigger: { trigger: "#services", start: "top 70%" }, opacity: 0, y: 40, duration: 0.8 });
+  gsap.from(".service-card", { scrollTrigger: { trigger: "#services", start: "top 60%" }, opacity: 0, y: 60, stagger: 0.1, duration: 0.8, ease: "power3.out" });
+
+  // Investment bars
+  gsap.utils.toArray('.bar-fill').forEach(bar => {
+    const width = bar.getAttribute('data-width');
+    gsap.to(bar, {
+      width: width,
+      scrollTrigger: { trigger: bar, start: "top 85%", once: true },
+      duration: 1.5, ease: "power3.out"
+    });
+  });
+  gsap.from(".invest-header", { scrollTrigger: { trigger: "#investment", start: "top 70%" }, opacity: 0, y: 40, duration: 0.8 });
+  gsap.from(".invest-card", { scrollTrigger: { trigger: "#investment", start: "top 60%" }, opacity: 0, y: 60, stagger: 0.2, duration: 1, ease: "power3.out" });
+
+  // Team
+  gsap.from(".team-header", { scrollTrigger: { trigger: "#team", start: "top 70%" }, opacity: 0, y: 40, duration: 0.8 });
+  gsap.from(".team-card", { scrollTrigger: { trigger: "#team", start: "top 60%" }, opacity: 0, y: 50, stagger: 0.1, duration: 0.8, ease: "power3.out" });
+
+  // Process
+  gsap.from(".process-header", { scrollTrigger: { trigger: ".process-header", start: "top 70%" }, opacity: 0, y: 40, duration: 0.8 });
+  gsap.utils.toArray('.process-step').forEach((step, i) => {
+    gsap.from(step, { scrollTrigger: { trigger: step, start: "top 80%" }, opacity: 0, y: 40, duration: 0.8, ease: "power3.out", delay: i * 0.1 });
+  });
+
+  // Contact
+  gsap.from("#contact .glass", { scrollTrigger: { trigger: "#contact", start: "top 70%" }, opacity: 0, y: 60, duration: 1, ease: "power3.out" });
+</script>
+
+</body>
+</html>

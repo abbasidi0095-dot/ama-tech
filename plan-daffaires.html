@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMA Tech Agency — Plan d'Affaires / خطة العمل</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0f172a;
+    --accent: #3b82f6;
+    --accent-2: #06b6d4;
+    --light: #f8fafc;
+    --text: #334155;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--light);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .lang-ar { font-family: 'Cairo', sans-serif; direction: rtl; text-align: right; display: none; }
+  .lang-fr { display: block; }
+  body[dir="rtl"] .lang-ar { display: block; }
+  body[dir="rtl"] .lang-fr { display: none; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .page { background: white; margin: 32px auto; padding: 48px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border-radius: 16px; page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+
+  header {
+    text-align: center; padding: 40px 0; border-bottom: 3px solid var(--accent); margin-bottom: 40px;
+  }
+  h1 { font-size: 2.2rem; color: var(--primary); margin-bottom: 8px; }
+  h2 { font-size: 1.5rem; color: var(--accent); margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 1.15rem; color: var(--primary); margin: 24px 0 12px; }
+  p { margin-bottom: 12px; }
+
+  .cover {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 90vh; text-align: center; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: white; border-radius: 16px;
+  }
+  .cover h1 { font-size: 3rem; color: white; margin-bottom: 16px; }
+  .cover h2 { font-size: 1.5rem; color: #94a3b8; border: none; }
+  .cover .meta { margin-top: 40px; font-size: 1rem; color: #cbd5e1; }
+  .cover .logo {
+    width: 100px; height: 100px; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; margin-bottom: 24px;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
+  th, td { border: 1px solid var(--border); padding: 12px; text-align: left; }
+  body[dir="rtl"] th, body[dir="rtl"] td { text-align: right; }
+  th { background: #f1f5f9; font-weight: 600; color: var(--primary); }
+  tr:nth-child(even) { background: #f8fafc; }
+  .text-right { text-align: right !important; }
+  .total { font-weight: 700; background: #e0f2fe !important; }
+
+  .chart-container { max-width: 600px; margin: 24px auto; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .info-box { background: #eff6ff; border-left: 4px solid var(--accent); padding: 16px; border-radius: 8px; margin: 16px 0; }
+  body[dir="rtl"] .info-box { border-left: none; border-right: 4px solid var(--accent); }
+
+  .toggle-bar {
+    position: fixed; top: 16px; right: 16px; z-index: 1000;
+    background: white; padding: 8px 16px; border-radius: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex; gap: 8px;
+  }
+  .toggle-bar button {
+    border: none; background: transparent; padding: 6px 12px; border-radius: 16px; cursor: pointer; font-weight: 600; color: var(--text);
+  }
+  .toggle-bar button.active { background: var(--accent); color: white; }
+
+  .print-btn {
+    position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+    background: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 50px;
+    font-size: 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(59,130,246,0.4);
+  }
+
+  @media print {
+    .toggle-bar, .print-btn { display: none !important; }
+    .page { box-shadow: none; margin: 0; padding: 24px; border-radius: 0; page-break-after: always; }
+    body { background: white; }
+    .cover { min-height: 100vh; }
+  }
+  @media (max-width: 768px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    .page { padding: 24px; }
+    .cover h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toggle-bar">
+  <button class="active" onclick="setLang('fr')">Français</button>
+  <button onclick="setLang('ar')">العربية</button>
+</div>
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer en PDF</button>
+
+<!-- ==================== FRENCH ==================== -->
+<div class="lang-fr">
+
+<div class="page cover">
+  <div class="logo">AMA</div>
+  <h1>AMA Tech Agency</h1>
+  <h2>Plan d'Affaires Complet</h2>
+  <div class="meta">
+    <p><strong>Projet:</strong> Agence de Développement Web, Mobile & Marketing Digital</p>
+    <p><strong>Siège:</strong> Laâyoune, Sud du Maroc</p>
+    <p><strong>Financement:</strong> MDM Tamwil — Investissement total: 87 000 MAD</p>
+    <p style="margin-top:24px; font-size:0.9rem; color:#94a3b8;">Document confidentiel — Juin 2026</p>
+  </div>
+</div>
+
+<div class="page">
+  <header><h1>AMA Tech Agency</h1><p>Plan d'Affaires — MDM Tamwil</p></header>
+
+  <h2>1. Résumé Exécutif</h2>
+  <p><strong>AMA Tech Agency</strong> est une agence digitale innovante basée à <strong>Laâyoune</strong>, capitale du Sahara Marocain. Fondée par <strong>5 jeunes entrepreneurs</strong> passionnés par les technologies numériques, l'agence a pour mission de combler le déficit structurel en solutions digitales dans le Sud du Maroc, une région en pleine croissance économique mais sous-digitalisée.</p>
+  <div class="info-box">
+    <strong>En chiffres:</strong> 87 000 MAD d'investissement | 5 associés | 6+ projets/mois dès le lancement | Seuil de rentabilité atteint dès la 3ème année.
+  </div>
+  <p>L'agence propose un écosystème complet: <strong>conception de sites web</strong> (vitrine, e-commerce, sur mesure), <strong>développement d'applications mobiles</strong> (iOS & Android), <strong>marketing digital</strong> (SEO, réseaux sociaux, publicité en ligne) et <strong>branding</strong> (identité visuelle, UI/UX).</p>
+  <p>Le projet sollicite un financement <strong>MDM Tamwil</strong> de <strong>62 000 MAD</strong>, complété par un apport personnel des 5 associés de <strong>25 000 MAD</strong>.</p>
+
+  <h2>2. Présentation du Projet</h2>
+  <h3>2.1 Dénomination & Forme Juridique</h3>
+  <ul>
+    <li><strong>Raison sociale:</strong> AMA Tech Agency SARL</li>
+    <li><strong>Forme juridique:</strong> Société à Responsabilité Limitée (SARL)</li>
+    <li><strong>Capital social:</strong> 87 000 MAD</li>
+    <li><strong>Siège social:</strong> Laâyoune, Maroc</li>
+    <li><strong>Activité principale:</strong> Programmation informatique, conseil en communication et marketing digital</li>
+  </ul>
+
+  <h3>2.2 Objectifs Stratégiques</h3>
+  <ul>
+    <li><strong>Année 1:</strong> Lancer l'agence, acquérir 6 clients/mois en moyenne, générer un CA de 180 000 MAD.</li>
+    <li><strong>Année 2:</strong> Consolider la notoriété locale, doubler le portefeuille clients, atteindre 360 000 MAD de CA.</li>
+    <li><strong>Année 3:</strong> Devenir l'agence de référence dans le Grand Sud, atteindre 720 000 MAD de CA et recruter 2 employés.</li>
+  </ul>
+
+  <h2>3. Étude de Marché</h2>
+  <h3>3.1 Contexte du Sud Marocain</h3>
+  <p>La région de Laâyoune-Sakia El Hamra connaît un développement accéléré grâce aux investissements dans les énergies renouvelables, la pêche, le tourisme Saharien et les services publics. Pourtant, le tissu PME local souffre d'une <strong>absence d'accompagnement digital local</strong>. Les entreprises dépendent d'agences basées à Casablanca ou à l'étranger, avec des coûts élevés et un manque de proximité.</p>
+
+  <h3>3.2 Analyse de la Concurrence</h3>
+  <p>Le marché local est quasi vierge:</p>
+  <ul>
+    <li>Moins de <strong>2 agences digitales</strong> opèrent réellement sur Laâyoune et ses environs.</li>
+    <li>Aucune agence ne propose un panel complet "Web + Mobile + Marketing".</li>
+    <li>La demande est alimentée par les PME, start-ups locales, ONG, administration et promoteurs immobiliers/touristiques.</li>
+  </ul>
+
+  <h3>3.3 Segments de Clientèle</h3>
+  <table>
+    <tr><th>Segment</th><th>Besoins</th><th>CA Potentiel/Client</th></tr>
+    <tr><td>PME locales</td><td>Site vitrine, e-commerce, référencement</td><td>5 000 — 30 000 MAD</td></tr>
+    <tr><td>Tourisme & Immobilier</td><td>Sites de réservation, apps, branding</td><td>20 000 — 80 000 MAD</td></tr>
+    <tr><td>Administrations & ONG</td><td>Portails, applications de gestion</td><td>15 000 — 50 000 MAD</td></tr>
+    <tr><td>Commerçants & Artisans</td><td>Réseaux sociaux, logos, sites simples</td><td>1 500 — 5 000 MAD</td></tr>
+  </table>
+
+  <div class="chart-container">
+    <canvas id="marketChartFr"></canvas>
+  </div>
+</div>
+
+<div class="page">
+  <h2>4. Plan Marketing & Commercial</h2>
+  <h3>4.1 Stratégie d'Acquisition</h3>
+  <p>Pour atteindre l'objectif de <strong>6 projets/mois</strong> (puis 20 000 MAD/mois de CA), AMA Tech Agency déploie une stratégie multi-canale:</p>
+  <ul>
+    <li><strong>Démarchage actif:</strong> Prospection directe auprès des PME, hôtels et commerces de Laâyoune.</li>
+    <li><strong>Réseautage:</strong> Partenariats avec les chambres de commerce, associations d'entrepreneurs et incubateurs locaux.</li>
+    <li><strong>Recommandation:</strong> Programme de parrainage offrant une remise de 10% sur le prochain projet.</li>
+    <li><strong>Plateformes Freelance:</strong> Profils actifs sur Malt, Upwork et Khamsat pour diversifier la clientèle.</li>
+    <li><strong>Marketing de contenu:</strong> Publication d'articles, études de cas et vidéos "avant/après" sur LinkedIn, Instagram et TikTok.</li>
+  </ul>
+
+  <h3>4.2 Politique de Prix</h3>
+  <table>
+    <tr><th>Service</th><th>Tarif de départ</th><th>Tarif moyen</th></tr>
+    <tr><td>Site vitrine (WordPress/Custom)</td><td>1 500 MAD</td><td>4 000 MAD</td></tr>
+    <tr><td>Site e-commerce</td><td>5 000 MAD</td><td>15 000 MAD</td></tr>
+    <tr><td>Application mobile (Flutter)</td><td>10 000 MAD</td><td>35 000 MAD</td></tr>
+    <tr><td>Application web (SaaS/Dashboard)</td><td>8 000 MAD</td><td>25 000 MAD</td></tr>
+    <tr><td>Pack Marketing mensuel</td><td>2 000 MAD</td><td>4 000 MAD</td></tr>
+    <tr><td>Identité visuelle (Logo + Charte)</td><td>1 500 MAD</td><td>3 000 MAD</td></tr>
+  </table>
+
+  <h3>4.3 Objectifs Commerciaux</h3>
+  <div class="grid-2">
+    <div class="info-box">
+      <strong>Année 1</strong><br>
+      6 projets/mois en moyenne<br>
+      CA: 180 000 MAD<br>
+      Panier moyen: 2 500 MAD
+    </div>
+    <div class="info-box">
+      <strong>Année 3</strong><br>
+      15 projets/mois en moyenne<br>
+      CA: 720 000 MAD<br>
+      Panier moyen: 4 000 MAD
+    </div>
+  </div>
+
+  <h2>5. Plan Technique</h2>
+  <h3>5.1 Infrastructure & Outils</h3>
+  <ul>
+    <li><strong>Développement Web:</strong> React, Next.js, WordPress, Node.js, Laravel.</li>
+    <li><strong>Mobile:</strong> Flutter, React Native.</li>
+    <li><strong>Design:</strong> Figma, Adobe Creative Suite.</li>
+    <li><strong>Marketing:</strong> SEMrush, Meta Ads Manager, Google Ads.</li>
+    <li><strong>Gestion:</strong> Notion, GitHub, ClickUp.</li>
+  </ul>
+
+  <h3>5.2 Besoins en Équipement</h3>
+  <table>
+    <tr><th>Équipement</th><th>Qté</th><th>Prix Unitaire</th><th>Total</th></tr>
+    <tr><td>Laptops professionnels (développement)</td><td>5</td><td>6 000 MAD</td><td>30 000 MAD</td></tr>
+    <tr><td>Écrans 24" & accessoires</td><td>5</td><td>1 600 MAD</td><td>8 000 MAD</td></tr>
+    <tr><td>Imprimante multifonction laser</td><td>1</td><td>2 000 MAD</td><td>2 000 MAD</td></tr>
+    <tr><td>Serveur cloud & hébergement (1 an)</td><td>1</td><td>6 000 MAD</td><td>6 000 MAD</td></tr>
+    <tr><td>Aménagement & mobilier de bureau</td><td>1 lot</td><td>12 000 MAD</td><td>12 000 MAD</td></tr>
+    <tr><td>Licences logicielles (1 an)</td><td>1 lot</td><td>6 000 MAD</td><td>6 000 MAD</td></tr>
+    <tr><td>Fonds de roulement (3 mois)</td><td>1</td><td>15 000 MAD</td><td>15 000 MAD</td></tr>
+    <tr><td>Marketing de lancement</td><td>1</td><td>3 000 MAD</td><td>3 000 MAD</td></tr>
+    <tr><td>Frais de constitution & légaux</td><td>1</td><td>3 000 MAD</td><td>3 000 MAD</td></tr>
+    <tr><td>Frais divers & imprévus</td><td>1</td><td>2 000 MAD</td><td>2 000 MAD</td></tr>
+    <tr class="total"><td colspan="3"><strong>TOTAL INVESTISSEMENT</strong></td><td><strong>87 000 MAD</strong></td></tr>
+  </table>
+</div>
+
+<div class="page">
+  <h2>6. Plan Juridique & Administratif</h2>
+  <ul>
+    <li><strong>Immatriculation:</strong> Registre de Commerce (RC), Taxe Professionnelle, CNSS.</li>
+    <li><strong>Comptabilité:</strong> Externalisée chez un cabinet comptable agréé (coût: 1 000 MAD/mois).</li>
+    <li><strong>Statut des associés:</strong> 5 associés personnes physiques, parts sociales égales de <strong>20%</strong> chacun.</li>
+    <li><strong>Gouvernance:</strong> Gérant désigné (CEO) avec pouvoirs étendus pour la gestion courante; décisions stratégiques en assemblée générale à l'unanimité.</li>
+    <li><strong>Contrats:</strong> Contrats types pour clients (cahier des charges, devis, bon de commande) et pour fournisseurs.</li>
+  </ul>
+
+  <h2>7. Plan Organisationnel & Ressources Humaines</h2>
+  <h3>7.1 Structure de l'Équipe (Lancement)</h3>
+  <p>L'équipe initiale est composée exclusivement des <strong>5 cofondateurs</strong>, sans salaires initiaux. Chacun apporte une compétence clé:</p>
+  <table>
+    <tr><th>Associé</th><th>Rôle</th><th>Compétences Clés</th></tr>
+    <tr><td>Fondateur 1</td><td>CEO / Gérant</td><td>Stratégie, business development, gestion de projet</td></tr>
+    <tr><td>Fondateur 2</td><td>CTO / Lead Dev</td><td>Architecture technique, stack MERN/Flutter, DevOps</td></tr>
+    <tr><td>Fondateur 3</td><td>Développeur Full-Stack</td><td>Frontend, backend, intégration CMS</td></tr>
+    <tr><td>Fondateur 4</td><td>Marketing Manager</td><td>SEO, Social Media, Branding, Copywriting</td></tr>
+    <tr><td>Fondateur 5</td><td>Commercial / Admin</td><td>Ventes, relation client, comptabilité de base</td></tr>
+  </table>
+
+  <h3>7.2 Plan de Recrutement</h3>
+  <ul>
+    <li><strong>Année 1:</strong> Aucun salarié. Les associés assurent l'ensemble des missions.</li>
+    <li><strong>Année 2:</strong> Recrutement d'1 <strong>Développeur Junior</strong> (CDI, 4 000 MAD/mois) et d'1 <strong>Commercial</strong> (CDI, 3 500 MAD/mois).</li>
+    <li><strong>Année 3:</strong> Recrutement d'1 <strong>Designer UI/UX</strong> (CDI, 5 000 MAD/mois).</li>
+  </ul>
+
+  <h3>7.3 Rémunération des Associés</h3>
+  <p>En phase de lancement, <strong>aucun salaire</strong> n'est versé aux associés. La rémunération est différée sous forme de <strong>parts de bénéfices</strong> (dividendes) distribuées proportionnellement aux parts (20% chacun) après réinvestissement de 30% des bénéfices au sein de la société.</p>
+
+  <h2>8. Plan Financier</h2>
+  <h3>8.1 Plan de Financement</h3>
+  <table>
+    <tr><th>Ressources</th><th>Montant (MAD)</th><th>%</th></tr>
+    <tr><td>Apport personnel des 5 associés (5 × 5 000)</td><td>25 000</td><td>28,7%</td></tr>
+    <tr><td>Prêt MDM Tamwil</td><td>62 000</td><td>71,3%</td></tr>
+    <tr class="total"><td><strong>Total</strong></td><td><strong>87 000</strong></td><td><strong>100%</strong></td></tr>
+  </table>
+
+  <h3>8.2 Compte d'Investissement</h3>
+  <p>(Détaillé dans la section 5.2)</p>
+  <div class="chart-container">
+    <canvas id="investChartFr"></canvas>
+  </div>
+
+  <h3>8.3 Compte d'Exploitation Prévisionnel (3 ans)</h3>
+  <table>
+    <tr><th>Postes</th><th>Année 1</th><th>Année 2</th><th>Année 3</th></tr>
+    <tr><td>Chiffre d'Affaires (CA)</td><td>180 000</td><td>360 000</td><td>720 000</td></tr>
+    <tr><td>Coûts d'exploitation</td><td>75 000</td><td>110 000</td><td>180 000</td></tr>
+    <tr><td>Amortissements (87k/5 ans)</td><td>17 400</td><td>17 400</td><td>17 400</td></tr>
+    <tr><td><strong>Résultat d'Exploitation</strong></td><td><strong>87 600</strong></td><td><strong>232 600</strong></td><td><strong>522 600</strong></td></tr>
+    <tr><td>Impôt sur les Sociétés (20%)</td><td>17 520</td><td>46 520</td><td>104 520</td></tr>
+    <tr class="total"><td><strong>Résultat Net</strong></td><td><strong>70 080</strong></td><td><strong>186 080</strong></td><td><strong>418 080</strong></td></tr>
+  </table>
+</div>
+
+<div class="page">
+  <h3>8.4 Plan de Trésorerie Prévisionnel (Année 1 — Simplifié)</h3>
+  <table>
+    <tr><th>Période</th><th>Encaissements</th><th>Décaissements</th><th>Solde Cumulé</th></tr>
+    <tr><td>Mois 0 (Lancement)</td><td>87 000 (apport+prêt)</td><td>87 000 (investissement)</td><td>0</td></tr>
+    <tr><td>Mois 1-3 (Trim 1)</td><td>27 000</td><td>17 250 (charges+prêt)</td><td>9 750</td></tr>
+    <tr><td>Mois 4-6 (Trim 2)</td><td>36 000</td><td>17 250</td><td>28 500</td></tr>
+    <tr><td>Mois 7-9 (Trim 3)</td><td>54 000</td><td>17 250</td><td>65 250</td></tr>
+    <tr><td>Mois 10-12 (Trim 4)</td><td>60 000</td><td>17 250</td><td>108 000</td></tr>
+  </table>
+  <p><em>* Décaissements mensuels estimés à 5 750 MAD (charges) + 1 000 MAD (remboursement prêt) = 6 750 MAD; arrondi à 5 750 par trimestre dans ce tableau simplifié car le remboursement commence souvent après un différé de 6 mois avec MDM Tamwil. Nous retenons 5 750 MAD/trimestre pour les charges d'exploitation.</em></p>
+
+  <h3>8.5 Seuil de Rentabilité</h3>
+  <p>Le seuil de rentabilité correspond au CA minimum à réaliser pour couvrir l'ensemble des charges fixes (y compris amortissements).</p>
+  <div class="grid-2">
+    <div class="info-box">
+      <strong>Charges Fixes Annuelles</strong><br>
+      Exploitation: 75 000 MAD<br>
+      Amortissements: 17 400 MAD<br>
+      <strong>Total: 92 400 MAD</strong>
+    </div>
+    <div class="info-box">
+      <strong>Seuil de Rentabilité</strong><br>
+      À 1 500 MAD/projet: 62 projets/an (5/mois)<br>
+      À 2 500 MAD/projet: 37 projets/an (3/mois)<br>
+      <strong>L'agence est rentable dès 3 à 5 projets mensuels.</strong>
+    </div>
+  </div>
+
+  <h2>9. Analyse des Risques & Atténuations</h2>
+  <table>
+    <tr><th>Risque</th><th>Probabilité</th><th>Impact</th><th>Mesure d'Atténuation</th></tr>
+    <tr><td>Faible demande initiale</td><td>Moyenne</td><td>Élevé</td><td>Démarchage intensif, tarifs compétitifs, portefeuille de démos solide.</td></tr>
+    <tr><td>Départ d'un associé</td><td>Faible</td><td>Moyen</td><td>Pacte d'actionnaires avec clause de sortie et répartition des compétences.</td></tr>
+    <tr><td>Retard de financement MDM</td><td>Moyenne</td><td>Élevé</td><td>Démarrage progressif avec apport personnel, phase de freelancing en parallèle.</td></tr>
+    <tr><td>Concurrence nouvelle</td><td>Moyenne</td><td>Moyen</td><td>Différenciation par la qualité, proximité client et support continu.</td></tr>
+    <tr><td>Impayés clients</td><td>Moyenne</td><td>Moyen</td><td>Acompte de 50% à la commande, facturation par étapes.</td></tr>
+  </table>
+
+  <h2>10. Conclusion</h2>
+  <p>AMA Tech Agency représente une <strong>opportunité d'investissement structurée et à fort potentiel</strong> dans une région en manque criant de solutions digitales. Avec un besoin de financement maîtrisé de <strong>87 000 MAD</strong>, une équipe engagée de 5 associés complémentaires et un modèle économique rentable dès la première année, le projet remplit l'ensemble des critères de viabilité requis par <strong>MDM Tamwil</strong>.</p>
+  <p>Nous sollicitons donc l'octroi du <strong>prêt MDM Tamwil de 62 000 MAD</strong> pour concrétiser ce projet porteur d'emplois et de développement numérique pour le Grand Sud Marocain.</p>
+  <div style="text-align:center; margin-top:40px;">
+    <p><strong>Contact</strong></p>
+    <p>AMA Tech Agency SARL</p>
+    <p>Laâyoune, Maroc</p>
+    <p>Email: contact@amatech.agency</p>
+    <p>Téléphone: +212 6XX XXX XXX</p>
+  </div>
+</div>
+</div>
+
+<!-- ==================== ARABIC ==================== -->
+<div class="lang-ar">
+
+<div class="page cover">
+  <div class="logo">AMA</div>
+  <h1>وكالة آما للتقنية</h1>
+  <h2>خطة العمل الشاملة</h2>
+  <div class="meta">
+    <p><strong>المشروع:</strong> وكالة تطوير الويب والتطبيقات والتسويق الرقمي</p>
+    <p><strong>المقر:</strong> العيون، جنوب المغرب</p>
+    <p><strong>التمويل:</strong> مقاولة tamwil (MDM) — إجمالي الاستثمار: 87.000 درهم</p>
+    <p style="margin-top:24px; font-size:0.9rem; color:#94a3b8;">وثيقة سرية — يونيو 2026</p>
+  </div>
+</div>
+
+<div class="page">
+  <header><h1>وكالة آما للتقنية</h1><p>خطة العمل — مقاولة tamwil</p></header>
+
+  <h2>1. الملخص التنفيذي</h2>
+  <p><strong>وكالة آما للتقنية (AMA Tech Agency)</strong> هي وكالة رقمية مبتكرة مقرها <strong>العيون</strong>، عاصمة الصحراء المغربية. أسسها <strong>5 شباب رياديين</strong> شغوفين بالتكنولوجيات الرقمية، وتهدف الوكالة إلى سد الخ deficit الهيكلي في الحلول الرقمية بجنوب المغرب، وهي منطقة تشهد نمواً اقتصادياً متسارعاً لكنها تعاني من نقص في التحول الرقمي.</p>
+  <div class="info-box">
+    <strong>بالأرقام:</strong> استثمار قدره 87.000 درهم | 5 شركاء | 6+ مشاريع/شهر منذ الإطلاق | نقطة التعادل تُحقق في السنة الأولى.
+  </div>
+  <p>تقدم الوكالة نظاماً بيئياً متكاملاً: <strong>تصميم المواقع الإلكترونية</strong> (عرضية، تجارة إلكترونية، مخصصة)، <strong>تطوير تطبيقات الهاتف</strong> (iOS و Android)، <strong>التسويق الرقمي</strong> (SEO، مواقع التواصل، إعلانات)، و<strong>الهوية البصرية</strong> (شعارات، UI/UX).</p>
+  <p>يطلب المشروع تمويلاً من <strong>مقاولة tamwil (MDM)</strong> بقيمة <strong>62.000 درهم</strong>، مكملاً بمساهمة شخصية للشركاء الخمسة بقيمة <strong>25.000 درهم</strong>.</p>
+
+  <h2>2. وصف المشروع</h2>
+  <h3>2.1 التسمية والهيكل القانوني</h3>
+  <ul>
+    <li><strong>التسمية التجارية:</strong> وكالة آما للتقنية (AMA Tech Agency SARL)</li>
+    <li><strong>الشكل القانوني:</strong> شركة ذات مسؤولية محدودة (SARL)</li>
+    <li><strong>رأس المال:</strong> 87.000 درهم</li>
+    <li><strong>المقر الاجتماعي:</strong> العيون، المغرب</li>
+    <li><strong>النشاط الرئيسي:</strong> البرمجة المعلوماتية، الاستشارة في التواصل والتسويق الرقمي</li>
+  </ul>
+
+  <h3>2.2 الأهداف الاستراتيجية</h3>
+  <ul>
+    <li><strong>السنة 1:</strong> إطلاق الوكالة، اكتساب 6 زبائن/شهر في المتوسط، تحقيق رقم معاملات قدره 180.000 درهم.</li>
+    <li><strong>السنة 2:</strong> تعزيز الوجود المحلي، مضاعفة محفظة الزبائن، الوصول إلى 360.000 درهم من الم turnover.</li>
+    <li><strong>السنة 3:</strong> أن تصبح الوكالة المرجعية في الجنوب الكبير، تحقيق 720.000 درهم من الم turnover وتوظيف موظفين اثنين.</li>
+  </ul>
+
+  <h2>3. دراسة السوق</h2>
+  <h3>3.1 سياق جنوب المغرب</h3>
+  <p>تعرف جهة العيون الساقية الحمراء تطوراً متسارعاً بفضل الاستثمارات في الطاقات المتجددة، والصيد، والسياحة الصحراوية، والخدمات العمومية. ومع ذلك، يعاني النسيج المقاولاتي المحلي من <strong>غياب للمرافقة الرقمية المحلية</strong>. تعتمد المقاولات على وكالات مقرها الدار البيضاء أو الخارج، بتكاليف مرتفعة ونقص في القرب.</p>
+
+  <h3>3.2 تحليل المنافسة</h3>
+  <p>السوق المحلي شبه خالٍ:</p>
+  <ul>
+    <li>توجد أقل من <strong>وكالتين رقميتين</strong> فعلياً بالعيون ونواحيها.</li>
+    <li>لا توجد وكالة تقدم باقة متكاملة "ويب + موبايل + تسويق".</li>
+    <li>الطلب مدفوع من المقاولات الصغرى، والناشئين، والجمعيات، والإدارات، والمسؤولين العقاريين/السياحيين.</li>
+  </ul>
+
+  <h3>3.3 شرائح الزبائن</h3>
+  <table>
+    <tr><th>الشريحة</th><th>الحاجيات</th><th>ال turnover المحتمل/الزبون</th></tr>
+    <tr><td>المقاولات الصغرى المحلية</td><td>موقع عرضي، تجارة إلكترونية، SEO</td><td>5.000 — 30.000 درهم</td></tr>
+    <tr><td>السياحة والعقار</td><td>مواقع حجز، تطبيقات، هوية بصرية</td><td>20.000 — 80.000 درهم</td></tr>
+    <tr><td>الإدارات والجمعيات</td><td>بوابات إلكترونية، تطبيقات التدبير</td><td>15.000 — 50.000 درهم</td></tr>
+    <tr><td>التجار والحرفيين</td><td>مواقع التواصل، شعارات، مواقع بسيطة</td><td>1.500 — 5.000 درهم</td></tr>
+  </table>
+
+  <div class="chart-container">
+    <canvas id="marketChartAr"></canvas>
+  </div>
+</div>
+
+<div class="page">
+  <h2>4. الخطة التسويقية والتجارية</h2>
+  <h3>4.1 استراتيجية الاستقطاب</h3>
+  <p>لتحقيق هدف <strong>6 مشاريع/شهر</strong> (ثم 20.000 درهم/شهر من الم turnover)، تشتغل وكالة آما باستراتيجية متعددة القنوات:</p>
+  <ul>
+    <li><strong>النقاش المباشر:</strong> استكشاف مباشر للمقاولات والفنادق والمحلات بالعيون.</li>
+    <li><strong>الشبكات العلاقاتية:</strong> شراكات مع غرف التجارة، وجمعيات ال ryadiين، وحاضنات الأعمال المحلية.</li>
+    <li><strong>التوصية:</strong> برنامج إحالة يمنح خصماً بقيمة 10% على المشروع المقبل.</li>
+    <li><strong>منصات العمل الحر:</strong> حسابات نشطة على Malt و Upwork وخمسات لتنويع الزبائن.</li>
+    <li><strong>التسويق بالمحتوى:</strong> نشر مقالات، دراسات حالة، وفيديوهات "قبل/بعد" على LinkedIn و Instagram و TikTok.</li>
+  </ul>
+
+  <h3>4.2 سياسة التسعير</h3>
+  <table>
+    <tr><th>الخدمة</th><th>السعر الابتدائي</th><th>السعر المتوسط</th></tr>
+    <tr><td>موقع عرضي (WordPress/مخصص)</td><td>1.500 درهم</td><td>4.000 درهم</td></tr>
+    <tr><td>موقع تجارة إلكترونية</td><td>5.000 درهم</td><td>15.000 درهم</td></tr>
+    <tr><td>تطبيق موبايل (Flutter)</td><td>10.000 درهم</td><td>35.000 درهم</td></tr>
+    <tr><td>تطبيق ويب (SaaS/لوحة تحكم)</td><td>8.000 درهم</td><td>25.000 درهم</td></tr>
+    <tr><td>باقة تسويق شهرية</td><td>2.000 درهم</td><td>4.000 درهم</td></tr>
+    <tr><td>هوية بصرية (شعار + دليل)</td><td>1.500 درهم</td><td>3.000 درهم</td></tr>
+  </table>
+
+  <h3>4.3 الأهداف التجارية</h3>
+  <div class="grid-2">
+    <div class="info-box">
+      <strong>السنة 1</strong><br>
+      6 مشاريع/شهر في المتوسط<br>
+      turnover: 180.000 درهم<br>
+      متوسط السلة: 2.500 درهم
+    </div>
+    <div class="info-box">
+      <strong>السنة 3</strong><br>
+      15 مشروع/شهر في المتوسط<br>
+      turnover: 720.000 درهم<br>
+      متوسط السلة: 4.000 درهم
+    </div>
+  </div>
+
+  <h2>5. الدراسة التقنية</h2>
+  <h3>5.1 البنية التحتية والأدوات</h3>
+  <ul>
+    <li><strong>تطوير الويب:</strong> React، Next.js، WordPress، Node.js، Laravel.</li>
+    <li><strong>الموبايل:</strong> Flutter، React Native.</li>
+    <li><strong>التصميم:</strong> Figma، Adobe Creative Suite.</li>
+    <li><strong>التسويق:</strong> SEMrush، Meta Ads Manager، Google Ads.</li>
+    <li><strong>التدبير:</strong> Notion، GitHub، ClickUp.</li>
+  </ul>
+
+  <h3>5.2 احتياجات التجهيز</h3>
+  <table>
+    <tr><th>التجهيز</th><th>الكمية</th><th>الثمن الوحدوي</th><th>المجموع</th></tr>
+    <tr><td>حواسيب محمولة احترافية (تطوير)</td><td>5</td><td>6.000 درهم</td><td>30.000 درهم</td></tr>
+    <tr><td>شاشات 24" وملحقات</td><td>5</td><td>1.600 درهم</td><td>8.000 درهم</td></tr>
+    <tr><td>طابعة متعددة الوظائف</td><td>1</td><td>2.000 درهم</td><td>2.000 درهم</td></tr>
+    <tr><td>خادم سحابي واستضافة (سنة)</td><td>1</td><td>6.000 درهم</td><td>6.000 درهم</td></tr>
+    <tr><td>تأثيث وتجهيز المكتب</td><td>1 دفعة</td><td>12.000 درهم</td><td>12.000 درهم</td></tr>
+    <tr><td>تراخيص البرمجيات (سنة)</td><td>1 دفعة</td><td>6.000 درهم</td><td>6.000 درهم</td></tr>
+    <tr><td>رأس المال العامل (3 أشهر)</td><td>1</td><td>15.000 درهم</td><td>15.000 درهم</td></tr>
+    <tr><td>تسويق الإطلاق</td><td>1</td><td>3.000 درهم</td><td>3.000 درهم</td></tr>
+    <tr><td>رسوم التأسيس والقانون</td><td>1</td><td>3.000 درهم</td><td>3.000 درهم</td></tr>
+    <tr><td>مصاريف متنوعة ومستجدة</td><td>1</td><td>2.000 درهم</td><td>2.000 درهم</td></tr>
+    <tr class="total"><td colspan="3"><strong>إجمالي الاستثمار</strong></td><td><strong>87.000 درهم</strong></td></tr>
+  </table>
+</div>
+
+<div class="page">
+  <h2>6. الهيكل القانوني والإداري</h2>
+  <ul>
+    <li><strong>التسجيل:</strong> السجل التجاري (RC)، الضريبة المهنية، الصندوق الوطني للضمان الاجتماعي (CNSS).</li>
+    <li><strong>المحاسبة:</strong> مُفوّضة لمكتب محاسبي معتمد (كلفة: 1.000 درهم/شهر).</li>
+    <li><strong>وضعية الشركاء:</strong> 5 شركاء أشخاص ذاتيين، حصص متساوية بـ <strong>20%</strong> لكل واحد.</li>
+    <li><strong>الحوكمة:</strong> مدير مُعيَّن (CEO) بصلاحيات موسعة للتدبير اليومي؛ القرارات الاستراتيجية في الجمعية العامة بالإجماع.</li>
+    <li><strong>العقود:</strong> نماذج عقود للزبائن (دفتر تحملات، عروض أسعار، أوامر الشراء) وللموردين.</li>
+  </ul>
+
+  <h2>7. الهيكل التنظيمي والموارد البشرية</h2>
+  <h3>7.1 هيكل الفريق (الانطلاق)</h3>
+  <p>يتكون الفريق الأولي حصرياً من <strong>5 مؤسسين</strong>، بدون أجور شهرية. يجلب كل واحد كفاءة أساسية:</p>
+  <table>
+    <tr><th>الشريك</th><th>الدور</th><th>الكفاءات الأساسية</th></tr>
+    <tr><td>المؤسس 1</td><td>المدير التنفيذي / المدير</td><td>استراتيجية، تطوير الأعمال، تدبير المشاريع</td></tr>
+    <tr><td>المؤسس 2</td><td>المدير التقني / رئيس التطوير</td><td>هندسة تقنية، MERN/Flutter، DevOps</td></tr>
+    <tr><td>المؤسس 3</td><td>مطور Full-Stack</td><td>واجهات، خلفيات، دمج CMS</td></tr>
+    <tr><td>المؤسس 4</td><td>مسؤول التسويق</td><td>SEO، مواقع التواصل، الهوية، الكتابة</td></tr>
+    <tr><td>المؤسس 5</td><td>تجاري / إداري</td><td>مبيعات، علاقات الزبائن، محاسبة أولية</td></tr>
+  </table>
+
+  <h3>7.2 خطة التوظيف</h3>
+  <ul>
+    <li><strong>السنة 1:</strong> لا يوجد أجراء. يتكفل الشركاء بمجمل المهام.</li>
+    <li><strong>السنة 2:</strong> توظيف <strong>مطور مبتدئ</strong> (CDI، 4.000 درهم/شهر) و<strong>تجاري</strong> (CDI، 3.500 درهم/شهر).</li>
+    <li><strong>السنة 3:</strong> توظيف <strong>مصمم UI/UX</strong> (CDI، 5.000 درهم/شهر).</li>
+  </ul>
+
+  <h3>7.3 أجور الشركاء</h3>
+  <p>في مرحلة الانطلاق، <strong>لا يتم صرف أجور شهرية</strong> للشركاء. يتم تأجير التعويض على شكل <strong>أرباح</strong> (أرباح) موزعة بحسب الحصص (20% لكل واحد) بعد إعادة استثمار 30% من الأرباح داخل الشركة.</p>
+
+  <h2>8. الخطة المالية</h2>
+  <h3>8.1 خطة التمويل</h3>
+  <table>
+    <tr><th>الموارد</th><th>المبلغ (درهم)</th><th>%</th></tr>
+    <tr><td>المساهمة الشخصية للشركاء الخمسة (5 × 5.000)</td><td>25.000</td><td>28,7%</td></tr>
+    <tr><td>قرض مقاولة tamwil (MDM)</td><td>62.000</td><td>71,3%</td></tr>
+    <tr class="total"><td><strong>المجموع</strong></td><td><strong>87.000</strong></td><td><strong>100%</strong></td></tr>
+  </table>
+
+  <h3>8.2 حساب الاستثمار</h3>
+  <p>(مفصل في القسم 5.2)</p>
+  <div class="chart-container">
+    <canvas id="investChartAr"></canvas>
+  </div>
+
+  <h3>8.3 حساب التشغيل المتوقع (3 سنوات)</h3>
+  <table>
+    <tr><th>البنود</th><th>السنة 1</th><th>السنة 2</th><th>السنة 3</th></tr>
+    <tr><td>رقم المعاملات ( turnover)</td><td>180.000</td><td>360.000</td><td>720.000</td></tr>
+    <tr><td>تكاليف التشغيل</td><td>75.000</td><td>110.000</td><td>180.000</td></tr>
+    <tr><td>الإهلاكات (87 ألف/5 سنوات)</td><td>17.400</td><td>17.400</td><td>17.400</td></tr>
+    <tr><td><strong>نتيجة التشغيل</strong></td><td><strong>87.600</strong></td><td><strong>232.600</strong></td><td><strong>522.600</strong></td></tr>
+    <tr><td>ضريبة الشركات (20%)</td><td>17.520</td><td>46.520</td><td>104.520</td></tr>
+    <tr class="total"><td><strong>النتيجة الصافية</strong></td><td><strong>70.080</strong></td><td><strong>186.080</strong></td><td><strong>418.080</strong></td></tr>
+  </table>
+</div>
+
+<div class="page">
+  <h3>8.4 خطة النقدية المتوقعة (السنة 1 — مبسطة)</h3>
+  <table>
+    <tr><th>الفترة</th><th>المداخيل</th><th>المصاريف</th><th>الرصيد التراكمي</th></tr>
+    <tr><td>الشهر 0 (الانطلاق)</td><td>87.000 (مساهمة+قرض)</td><td>87.000 (استثمار)</td><td>0</td></tr>
+    <tr><td>الأشهر 1-3 (ربع 1)</td><td>27.000</td><td>17.250 (مصاريف+قرض)</td><td>9.750</td></tr>
+    <tr><td>الأشهر 4-6 (ربع 2)</td><td>36.000</td><td>17.250</td><td>28.500</td></tr>
+    <tr><td>الأشهر 7-9 (ربع 3)</td><td>54.000</td><td>17.250</td><td>65.250</td></tr>
+    <tr><td>الأشهر 10-12 (ربع 4)</td><td>60.000</td><td>17.250</td><td>108.000</td></tr>
+  </table>
+  <p><em>* المصاريف الشهرية المقدرة بـ 5.750 درهم (تشغيل) + 1.000 درهم (سداد قرض) = 6.750 درهم؛ تم تقريبها إلى 5.750 درهم/ربع في هذا الجدول المبسط لأن سداد القرض غالباً ما يبدأ بعد مهلة 6 أشهر مع مقاولة tamwil. نحتفظ بـ 5.750 درهم/ربع كمصاريف تشغيل.</em></p>
+
+  <h3>8.5 نقطة التعادل</h3>
+  <p>نقطة التعادل هي حجم turnover الأدنى الواجب تحقيقه لتغطية مجموع المصاريف الثابتة (بما فيها الإهلاكات).</p>
+  <div class="grid-2">
+    <div class="info-box">
+      <strong>المصاريف الثابتة السنوية</strong><br>
+      التشغيل: 75.000 درهم<br>
+      الإهلاكات: 17.400 درهم<br>
+      <strong>المجموع: 92.400 درهم</strong>
+    </div>
+    <div class="info-box">
+      <strong>نقطة التعادل</strong><br>
+      بسعر 1.500 درهم/مشروع: 62 مشروع/سنة (5/شهر)<br>
+      بسعر 2.500 درهم/مشروع: 37 مشروع/سنة (3/شهر)<br>
+      <strong>الوكالة مربحة من 3 إلى 5 مشاريع شهرية.</strong>
+    </div>
+  </div>
+
+  <h2>9. تحليل المخاطر والتخفيف منها</h2>
+  <table>
+    <tr><th>المخاطر</th><th>الاحتمال</th><th>التأثير</th><th>تدبير التخفيف</th></tr>
+    <tr><td>ضعف الطلب الأولي</td><td>متوسط</td><td>عالٍ</td><td>نقاش مكثف، أسعار تنافسية، محفظة عروض قوية.</td></tr>
+    <tr><td>انسحاب أحد الشركاء</td><td>ضعيف</td><td>متوسط</td><td>عقد مساهمين بشرط الخروج وتوزيع الكفاءات.</td></tr>
+    <tr><td>تأخر التمويل من MDM</td><td>متوسط</td><td>عالٍ</td><td>انطلاق تدريجي بالمساهمات الشخصية، العمل الحر بالتوازي.</td></tr>
+    <tr><td>منافسة جديدة</td><td>متوسط</td><td>متوسط</td><td>التمييز بالجودة، القرب من الزبون، والدعم المتواصل.</td></tr>
+    <tr><td>تأخر دفع الزبائن</td><td>متوسط</td><td>متوسط</td><td>دفعة أولى 50% عند الطلب، فوترة بالمراحل.</td></tr>
+  </table>
+
+  <h2>10. الخلاصة</h2>
+  <p>تمثل وكالة آما للتقنية <strong>فرصة استثمارية منظمة وواعدة</strong> في منطقة تعاني من نقص حاد في الحلول الرقمية. مع حاجة تمويلية مضبوطة بـ <strong>87.000 درهم</strong>، وفريق متفانٍ من 5 شركاء متكاملين، ونموذج اقتصادي مربح من السنة الأولى، يستوفي المشروع جميع معايير الجدوى المطلوبة من <strong>مقاولة tamwil (MDM)</strong>.</p>
+  <p>نطلب منكم منح <strong>قرض مقاولة tamwil بقيمة 62.000 درهم</strong> لتحقيق هذا المشروع القادر على خلق مناصب الشغل والتنمية الرقمية للجنوب الكبير المغربي.</p>
+  <div style="text-align:center; margin-top:40px;">
+    <p><strong>للتواصل</strong></p>
+    <p>وكالة آما للتقنية SARL</p>
+    <p>العيون، المغرب</p>
+    <p>البريد: contact@amatech.agency</p>
+    <p>الهاتف: +212 6XX XXX XXX</p>
+  </div>
+</div>
+</div>
+
+<script>
+function setLang(lang) {
+  document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+  document.querySelectorAll('.toggle-bar button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  // Re-render charts for correct RTL/LTR
+  renderCharts();
+}
+
+function renderCharts() {
+  const isAr = document.body.getAttribute('dir') === 'rtl';
+  
+  // Investment Chart
+  const investCtx = document.getElementById(isAr ? 'investChartAr' : 'investChartFr');
+  if(investCtx) {
+    if(window.investChartInstance) window.investChartInstance.destroy();
+    window.investChartInstance = new Chart(investCtx, {
+      type: 'doughnut',
+      data: {
+        labels: isAr ? ['حواسيب','شاشات','طابعة','خادم سحابي','تأثيث','تراخيص','رأس مال عامل','تسويق','تأسيس','مستجدات'] : ['Laptops','Écrans','Imprimante','Serveur','Bureau','Licences','Fonds roulement','Marketing','Légaux','Imprévus'],
+        datasets: [{
+          data: [30000,8000,2000,6000,12000,6000,15000,3000,3000,2000],
+          backgroundColor: ['#3b82f6','#06b6d4','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#14b8a6','#6366f1','#84cc16']
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+  }
+
+  // Market Chart
+  const marketCtx = document.getElementById(isAr ? 'marketChartAr' : 'marketChartFr');
+  if(marketCtx) {
+    if(window.marketChartInstance) window.marketChartInstance.destroy();
+    window.marketChartInstance = new Chart(marketCtx, {
+      type: 'bar',
+      data: {
+        labels: isAr ? ['السنة 1','السنة 2','السنة 3'] : ['Année 1','Année 2','Année 3'],
+        datasets: [{
+          label: isAr ? 'رقم المعاملات (درهم)' : 'Chiffre d\'Affaires (MAD)',
+          data: [180000,360000,720000],
+          backgroundColor: '#3b82f6',
+          borderRadius: 6
+        }]
+      },
+      options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+  }
+}
+
+window.onload = renderCharts;
+</script>
+
+</body>
+</html>
